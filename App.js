@@ -3,7 +3,7 @@ import { StyleSheet, Text, View,Button } from 'react-native';
 import {useState} from 'react';
 export default function App() {
   const [nome,setnome] = useState('cebola');
-  const [sessao, setSessao] = useState('miions');
+  const [sessao, setSessao] = useState('minions');
   const [exibindo, setExibindo] = useState('true');
 
   const clicado = () =>{
