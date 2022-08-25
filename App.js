@@ -1,36 +1,87 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,Button } from 'react-native';
-import {useState} from 'react';
+import { SafeAreaView, FlatList, Image, StyleSheet, Text, View, Button } from 'react-native';
+import { useState, useEffect } from 'react';
+import styled from 'styled-components/native';
 export default function App() {
-  const [nome,setnome] = useState('cebola');
-  const [sessao, setSessao] = useState('minions');
-  const [exibindo, setExibindo] = useState('true');
+  const [pokemons, setPokemons] = useState([])
+  useEffect(() =>{
+    fetch('https://pokeapi.co/api/v2/pokemon',{
+      method:'GET',
+      heathers:{
+        'Accept': 'aplication/json',
+      }
+    })
+    .then(response => response.json())
+    .then(data=>{
+      console.log(data)
+      setPokemons(data.results)
+    })
+  },[])
 
-  const clicado = () =>{
-    setSessao('thor');
-    setnome('batata');
-    setExibindo('false');
-  }
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}> { nome}</Text>
-      <Text style={styles.titulo}> { sessao}</Text>
-      <Text style={styles.titulo}> { exibindo ? "esta em sessão" : "acabou:("}</Text>
-      <StatusBar style="auto" />
-      <Button title ='trocar sesão' onPress={clicado} />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={pokemons}
+        keyExtractor={(pokemon) => pokemon.name}
+        contentContainerStyle={{flexGrow: 1}}
+        renderItem={PokemonShow}
+      />
+    </SafeAreaView>
   );
 }
+function PokemonShow(item){
+  const {name,url}  = item.item
+  const pokemonNumber = url.replace('https://pokeapi.co/api/v2/pokemon','')
+  const ImageUrl = 'https://cdn.traction.one/pokedex/pokemon' +pokemonNumber+'.png'
+  
+  return(
+    <View style={pokemonEstilo.card}>
+      <Image style={{width:100, height:100}}
+             source={{uri: ImageUrl.replace('/.png','.png')}}
+      />
+      <Text>{name}</Text>
+    </View>
+  )
+}
+
+const pokemonEstilo = StyleSheet.create({
+  card: {
+    flexDirection: 'row',
+    whidth: '350',
+    height: '350' ,
+    backgroundColor: '#00FFFF',
+    margin: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '5',
+  },
+  Imagem:{
+    width: 300,
+    height: 300, 
+  }
+})
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#64732F',
+    backgroundColor: '#150526',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  titulo: {
-    color:"#D99036",
-    fontSize:30,
+  titulo:{
+    color: '#F25C05',
+    fontSize: 28,
+  },
+  paragrafo:{
+    fontSize:12,
+    color:'#F20505',
   }
 });
+
+const NomePokemon = styled.text
+
+
+
+
+
+
