@@ -4,9 +4,13 @@ import styled from 'styled-components/native';
 export default function App() {
 
   return (
-    <SafeAreaView style={styles.container}>
-      
-    </SafeAreaView>
+    <TouchableOpacity style={styles.container}>
+      <View style={styled.titleWrapper
+      }>
+        <Text style={styled.Text}>markets</Text>
+      </View>
+     < View style={styles.divider}></View>
+    </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
