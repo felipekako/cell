@@ -1,8 +1,9 @@
-import { SafeAreaView, FlatList, Image, StyleSheet, Text, View, Button } from 'react-native';
+import { SafeAreaView, FlatList, Image, StyleSheet, Text, View, Button,TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
+import ListItem from './components/ListItem';
+import { SAMPLE_DATA } from './assets/data/sampleData';
 export default function App() {
-
   return (
     <TouchableOpacity style={styles.container}>
       <View style={styled.titleWrapper
@@ -10,6 +11,7 @@ export default function App() {
         <Text style={styled.Text}>markets</Text>
       </View>
      < View style={styles.divider}></View>
+     <ListItem/>
     </TouchableOpacity>
   );
 }
